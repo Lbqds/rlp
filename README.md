@@ -35,3 +35,6 @@ case class Person(name: String, age: Int) extends RLPSerializable {
 }
 ```
 
+## diff
+
+remove akka.util.ByteString and UInt256 from original implementation
