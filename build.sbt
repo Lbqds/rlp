@@ -34,6 +34,7 @@ lazy val releaseSettings = Seq(
   releaseProcess := Seq[ReleaseStep](
     checkSnapshotDependencies,
     inquireVersions,
+    runClean,
     runTest,
     setReleaseVersion,
     commitReleaseVersion,
@@ -55,6 +56,7 @@ lazy val rlp = (project in file("."))
   )
 
 lazy val publishSettings = Seq(
+  pgpReadOnly := false,
   homepage := Some(url(s"https://github.com/$username/$repo")),
   licenses += "MIT" -> url(s"https://github.com/$username/$repo/blob/master/LICENSE"),
   scmInfo := Some(ScmInfo(url(s"https://github.com/$username/$repo"), s"git@github.com:$username/$repo.git")),
@@ -67,7 +69,14 @@ lazy val publishSettings = Seq(
   ),
   publishMavenStyle := true,
   publishArtifact in Test := false,
-  publishTo in ThisBuild := Some(if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging),
+  publishConfiguration := publishConfiguration.value.withOverwrite(true),
+  publishTo := {
+    val nexus = "https://oss.sonatype.org/"
+    if (isSnapshot.value)
+      Some("snapshots" at nexus + "content/repositories/snapshots")
+    else
+      Some("releases"  at nexus + "service/local/staging/deploy/maven2")
+  },
   credentials ++= (for {
     username <- sys.env.get("SONATYPE_USERNAME")
     password <- sys.env.get("SONATYPE_PASSWORD")
