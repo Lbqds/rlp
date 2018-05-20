@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Lbqds/rlp.svg?branch=master)](https://travis-ci.org/Lbqds/rlp)
+
 Recursive Length Prefix (RLP) encoding implementation of [mantis](https://github.com/input-output-hk/mantis)
 
 ## usage
