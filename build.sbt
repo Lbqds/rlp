@@ -67,6 +67,7 @@ lazy val publishSettings = Seq(
   ),
   publishMavenStyle := true,
   publishArtifact in Test := false,
+  publishConfiguration := publishConfiguration.value.withOverwrite(true),
   publishTo in ThisBuild := Some(if (isSnapshot.value) Opts.resolver.sonatypeSnapshots else Opts.resolver.sonatypeStaging),
   credentials ++= (for {
     username <- sys.env.get("SONATYPE_USERNAME")
