@@ -4,6 +4,14 @@ Recursive Length Prefix (RLP) encoding implementation of [mantis](https://github
 
 ## usage
 
+add the line to your build.sbt
+
+```scala
+libraryDependences += "com.github.lbqds" %% "rlp" % "0.1"
+```
+
+then:
+
 ```scala
 import rlp._
 import rlp.RLPImplicits._
@@ -40,3 +48,7 @@ case class Person(name: String, age: Int) extends RLPSerializable {
 ## diff
 
 remove akka.util.ByteString and UInt256 from original implementation
+
+## TODO
+
+implement akka.serialization.Serializer with rlp
